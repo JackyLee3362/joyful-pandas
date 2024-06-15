@@ -33,23 +33,23 @@ from rich import print
 #
 def fairness_metrics(y_true, y_pred, sensitive_features, graph=False):
     normal_metrics = {
-        # "样本数[1.]": count,
-        "准确率[1.]": accuracy_score,  # 越大越好
-        "精确率[1.]": precision_score,  # 越大越好
-        "召回率[1.]": recall_score,
-        "FPR[0.]": false_positive_rate,  # 越小越好
-        "FNR[0.]": false_negative_rate,  # 越小越好
-        "F1 Score[1.]": f1_score,  # f1 分数，越接近 1 越好
-        # "ROCAUC的面积[1.]": roc_auc_score,  # 1 表示最佳性能 0.5 表示随机分类器
+        # "样本数(1)": count,
+        "准确率(1)": accuracy_score,  # 越大越好
+        "精确率(0)": precision_score,  # 越大越好
+        "召回率(1)": recall_score,
+        "FPR(0)": false_positive_rate,  # 越小越好
+        "FNR(0)": false_negative_rate,  # 越小越好
+        "F1 Score(1)": f1_score,  # f1 分数，越接近 1 越好
+        # "ROCAUC的面积(1)": roc_auc_score,  # 1 表示最佳性能 0.5 表示随机分类器
         # "选择率      ": selection_rate,
         # "公平性平均预测": mean_prediction,  # 衡量不同群体之间的平均预测值是否相等
     }
 
     fairness_metrics = {
-        "人口平等 差异[0.]": demographic_parity_difference,  # 越小越好
-        "人口平等 比率[1.]": demographic_parity_ratio,  # 越接近 1 越好
-        "机会均等 差异[0.]": equalized_odds_difference,  # 越小越好
-        "机会均等 比率[1.]": equalized_odds_ratio,  # 越接近 1 越好
+        "人口平等 差异(0)": demographic_parity_difference,  # 越接近 0 越好
+        "人口平等 比率(1)": demographic_parity_ratio,  # 越接近 1 越好
+        "机会均等 差异(0)": equalized_odds_difference,  # 越接近 0 越好
+        "机会均等 比率(1)": equalized_odds_ratio,  # 越接近 1 越好
     }
 
     metric_frame = MetricFrame(

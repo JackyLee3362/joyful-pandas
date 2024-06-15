@@ -1,6 +1,7 @@
 import shap
 import numpy as np
 import pandas as pd
+from collections import namedtuple
 
 
 def get_ext_train_comp_by_k(model, X_train, y_train, feature_index, k):
@@ -16,6 +17,11 @@ def get_ext_train_comp_by_k(model, X_train, y_train, feature_index, k):
     Returns:
         _type_: _description_
     """
+    # 定义返回值
+    Result = namedtuple(
+        "Result",
+        ["X_train_top", "y_train_top", "X_train_rand", "y_train_rand", "shap_values"],
+    )
     # 计算 shap_values
     explainer = shap.Explainer(model)
     shap_values = explainer(X_train)
@@ -30,7 +36,8 @@ def get_ext_train_comp_by_k(model, X_train, y_train, feature_index, k):
 
     X_train_top, y_train_top = _get_ext_train_set(X_train, y_train, top_k_indices)
     X_train_rand, y_train_rand = _get_ext_train_set(X_train, y_train, random_k_index)
-    return (X_train_top, y_train_top), (X_train_rand, y_train_rand), shap_values
+    return Result(X_train_top, y_train_top, X_train_rand, y_train_rand, shap_values)
+    # return (X_train_top, y_train_top), (X_train_rand, y_train_rand), shap_values
 
 
 def _get_ext_train_set(X_train, y_train, indices):
